@@ -110,6 +110,22 @@ export class Node {
     }
   }
 
+  search(value) {
+    if (this.value === NIL_VALUE) {
+      return NIL_NODE;
+    }
+    if (value === this.value) {
+      return this;
+    }
+    if (value < this.value && !isNil(this.left)) {
+      return this.left.search(value);
+    }
+    if (value > this.value && !isNil(this.right)) {
+      return this.right.search(value);
+    }
+    return NIL_NODE;
+  }
+
   get isRoot() {
     return isNil(this.parent);
   }
