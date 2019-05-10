@@ -1,4 +1,4 @@
-import { isNil, NIL_NODE } from "./constants";
+import { isNil, NIL_NODE, NIL_VALUE } from "./constants";
 
 export class Node {
   constructor(value, parent, left, right) {
@@ -18,7 +18,7 @@ export class Node {
   }
 
   push(value) {
-    if (!this.value) {
+    if (this.value === NIL_VALUE) {
       this.value = value;
       return this;
     }
@@ -97,6 +97,16 @@ export class Node {
     }
     if (!isNil(this.right)) {
       this.right.stripKeys();
+    }
+  }
+
+  inorderWalk(fn) {
+    if (!isNil(this.left)) {
+      this.left.inorderWalk(fn);
+    }
+    fn(this);
+    if (!isNil(this.right)) {
+      this.right.inorderWalk(fn);
     }
   }
 
